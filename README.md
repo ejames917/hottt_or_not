@@ -6,3 +6,7 @@ Run the h5_to_csv.py file and specifiy the source/name of the original data sour
 
 ## Uploading Jupyter Notebook to SageMaker
 To upload to SageMaker, simply go to AWS SageMaker through the user interface. Create a new notebook instance and then launch it. Once it is running, open the jupyter notebook, click “Upload” in the top right corner and then upload the “ml_prototype.ipynb” notebook. An S3 bucket and CSV file must then be specified in order for the notebook to run properly.
+
+Scores :
+Proposal : 10/10
+Checkpoint1: 10/10
