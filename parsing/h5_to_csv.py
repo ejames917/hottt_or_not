@@ -14,10 +14,11 @@ punc_re = r"[^\P{P}]+"
 
 def hdf5_to_csv(directory):
     with open("msds.csv", "w") as csvfile:
+        index = 0
         # Column headers
-        headers = "artist_name,danceability,duration,end_of_fade_in,energy,key,key_confidence,loudness,mode," \
+        headers = "index,artist_name,danceability,duration,end_of_fade_in,energy,key,key_confidence,loudness,mode," \
                   "mode_confidence,artist_hotttness,song_hotttness,start_of_fade_out,tempo,time_signature," \
-                  "time_signature_confidence,title,year"
+                  "time_signature_confidence,title,release,year"
         csvfile.write(headers)
         csvfile.write("\n")
         # Recursively visit every sub-dir until we find the h5 files
@@ -83,6 +84,9 @@ def hdf5_to_csv(directory):
                 # title = re.sub(punc_re, "", song_title)
                 title = song_title.decode('UTF-8')
 
+                # Release (I think this means the album title)
+                release = hdf5_getters.get_release(h5_file).decode('UTF-8')
+
                 # Year
                 year = hdf5_getters.get_year(h5_file)
 
@@ -92,16 +96,17 @@ def hdf5_to_csv(directory):
                 # Close the file
                 h5_file.close()
 
-                data = artist + "," + str(danceability) + "," + str(duration) + "," + str(end_of_fade_in) + "," + \
+                data = str(index) + "," + artist + "," + str(danceability) + "," + str(duration) + "," + str(end_of_fade_in) + "," + \
                        str(energy) + "," + str(key) + "," + str(key_confidence) + "," + str(loudness) + "," + \
                        str(mode) + "," + str(mode_confidence) + "," + str(artist_hotttness) + "," + str(song_hotttness)\
                        + "," + str(start_of_fade_out) + "," + str(tempo) + "," + str(time_signature) + "," + \
-                       str(time_signature_confidence) + "," + title + "," + str(year)
+                       str(time_signature_confidence) + "," + title + "," + release + "," + str(year)
                 csvfile.write(data)
                 csvfile.write("\n")
-
+                index += 1
                 # print("{} by {}".format(title, artist))
-                print("{} songs in ^this^ file".format(num_songs))
+                # print("{} songs in ^this^ file".format(num_songs))
+        print(index)
 
 
 if __name__ == "__main__":
