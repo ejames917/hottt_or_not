@@ -18,13 +18,13 @@ def hdf5_to_csv(directory):
         # Column headers
         headers = "index,artist_name,danceability,duration,end_of_fade_in,energy,key,key_confidence,loudness,mode," \
                   "mode_confidence,artist_hotttness,song_hotttness,start_of_fade_out,tempo,time_signature," \
-                  "time_signature_confidence,title,release,year"
+                  "time_signature_confidence,title,release,year,track_id"
         csvfile.write(headers)
         csvfile.write("\n")
         # Recursively visit every sub-dir until we find the h5 files
         for root, dirs, filenames in os.walk(directory):
             for file in filenames:
-                print(os.path.join(root, file))
+                # print(os.path.join(root, file))
                 # Use the hd5 wrappers to open the file
                 h5_file = hdf5_getters.open_h5_file_read(os.path.join(root, file))
                 # EXTRACT FEATURES!!!! and remove punctuation from strings
@@ -84,6 +84,10 @@ def hdf5_to_csv(directory):
                 # title = re.sub(punc_re, "", song_title)
                 title = song_title.decode('UTF-8')
 
+                # Track ID
+                track_id = hdf5_getters.get_track_id(h5_file)
+                song_id = track_id.decode('UTF-8')
+
                 # Release (I think this means the album title)
                 release = hdf5_getters.get_release(h5_file).decode('UTF-8')
 
@@ -100,8 +104,8 @@ def hdf5_to_csv(directory):
                        str(energy) + "," + str(key) + "," + str(key_confidence) + "," + str(loudness) + "," + \
                        str(mode) + "," + str(mode_confidence) + "," + str(artist_hotttness) + "," + str(song_hotttness)\
                        + "," + str(start_of_fade_out) + "," + str(tempo) + "," + str(time_signature) + "," + \
-                       str(time_signature_confidence) + "," + title + "," + release + "," + str(year)
-                csvfile.write(data)
+                       str(time_signature_confidence) + "," + title + "," + release + "," + str(year) + "," + song_id
+                csvfile.write(data.encode("UTF-8"))
                 csvfile.write("\n")
                 index += 1
                 # print("{} by {}".format(title, artist))
