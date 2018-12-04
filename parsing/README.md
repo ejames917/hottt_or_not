@@ -1,5 +1,5 @@
 # Instructions on Accessing the Million Song Datset From AWS Public Snapshot
-
+Note that an output of ~400,000 songs can be located inside the data directory (hosted on Google Drive).
 To gain access to the entire Million Song Dataset and convert it to CSV, follow the following steps:
  1. First go to AWS EC2 and create a new instance (e.g. m5a.2xlarge) that already has support for python and associated libraries. Make sure that it is running before proceeding.
 2. Then ensure that AWS CLI is setup and run ./create_volume.sh.
