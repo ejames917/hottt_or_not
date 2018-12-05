@@ -10,6 +10,8 @@ import numpy as np
 import pandas as pd
 
 punc_re = r"[^\P{P}]+"
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 def hdf5_to_csv(directory):
@@ -104,13 +106,12 @@ def hdf5_to_csv(directory):
                        str(energy) + "," + str(key) + "," + str(key_confidence) + "," + str(loudness) + "," + \
                        str(mode) + "," + str(mode_confidence) + "," + str(artist_hotttness) + "," + str(song_hotttness)\
                        + "," + str(start_of_fade_out) + "," + str(tempo) + "," + str(time_signature) + "," + \
-                       str(time_signature_confidence) + "," + title + "," + release + "," + str(year) + "," + song_id
-                csvfile.write(data.encode("UTF-8"))
+                       str(time_signature_confidence) + "," + title.encode("UTF-8") + "," + release + "," + str(year) + "," + song_id
+                csvfile.write(data)
                 csvfile.write("\n")
                 index += 1
-                # print("{} by {}".format(title, artist))
-                # print("{} songs in ^this^ file".format(num_songs))
-        print(index)
+                print("{} by {}".format(title, artist.encode("UTF-8")))
+                print("Processed: {}".format(index))
 
 
 if __name__ == "__main__":
