@@ -12,3 +12,4 @@ To upload to SageMaker, simply go to AWS SageMaker through the user interface. C
 Scores :
 Proposal : 10/10
 Checkpoint1: 10/10
+Checkpoint2 : 10/10
